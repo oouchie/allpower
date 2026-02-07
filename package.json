@@ -1,0 +1,10 @@
+{
+  "name": "all-power-cleaning",
+  "version": "1.0.0",
+  "description": "All Power Cleaning Services - Metro Atlanta Power Washing Website",
+  "private": true,
+  "scripts": {
+    "start": "npx serve public",
+    "dev": "npx serve public -l 3000"
+  }
+}
