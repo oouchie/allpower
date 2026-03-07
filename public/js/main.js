@@ -6,16 +6,33 @@
   'use strict';
 
   // --------------------------------------------------------------------------
-  // Page Loader - fade out on window load
+  // Page Loader - fade out on window load (minimal delay)
   // --------------------------------------------------------------------------
   function initPageLoader() {
     var loader = document.getElementById('page-loader');
     if (!loader) return;
 
     window.addEventListener('load', function () {
-      setTimeout(function () {
-        loader.classList.add('is-hidden');
-      }, 300);
+      loader.classList.add('is-hidden');
+    });
+  }
+
+  // --------------------------------------------------------------------------
+  // Announcement Bar - dismiss with persistence
+  // --------------------------------------------------------------------------
+  function initAnnouncementBar() {
+    var bar = document.getElementById('announcement-bar');
+    var closeBtn = document.getElementById('announcement-close');
+    if (!bar || !closeBtn) return;
+
+    if (sessionStorage.getItem('announcement-dismissed')) {
+      bar.remove();
+      return;
+    }
+
+    closeBtn.addEventListener('click', function () {
+      bar.remove();
+      sessionStorage.setItem('announcement-dismissed', '1');
     });
   }
 
@@ -35,7 +52,6 @@
           counters.forEach(function (counter) {
             var target = parseInt(counter.getAttribute('data-count'), 10);
             var duration = 1500;
-            var start = 0;
             var startTime = null;
 
             function step(timestamp) {
@@ -56,7 +72,8 @@
         }
       });
     }, {
-      threshold: 0.3
+      threshold: 0.1,
+      rootMargin: '0px 0px -40px 0px'
     });
 
     var statsContainer = document.querySelector('.hero__stats');
@@ -141,7 +158,7 @@
   }
 
   // --------------------------------------------------------------------------
-  // Mobile navigation
+  // Mobile navigation (with focus trap)
   // --------------------------------------------------------------------------
   function initMobileNav() {
     var toggleBtn = document.getElementById('menu-toggle');
@@ -149,16 +166,25 @@
     var mobileNav = document.getElementById('mobile-nav');
     if (!toggleBtn || !closeBtn || !mobileNav) return;
 
+    var panel = mobileNav.querySelector('.mobile-nav__panel');
+
+    function getFocusableElements() {
+      return panel.querySelectorAll('a[href], button, [tabindex]:not([tabindex="-1"])');
+    }
+
     function openNav() {
       mobileNav.classList.add('is-open');
       toggleBtn.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
+      // Move focus to close button
+      setTimeout(function () { closeBtn.focus(); }, 100);
     }
 
     function closeNav() {
       mobileNav.classList.remove('is-open');
       toggleBtn.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
+      toggleBtn.focus();
     }
 
     toggleBtn.addEventListener('click', openNav);
@@ -175,10 +201,33 @@
       link.addEventListener('click', closeNav);
     });
 
-    // Close on Escape key
+    // Close on Escape key + focus trap
     document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && mobileNav.classList.contains('is-open')) {
+      if (!mobileNav.classList.contains('is-open')) return;
+
+      if (e.key === 'Escape') {
         closeNav();
+        return;
+      }
+
+      // Focus trap
+      if (e.key === 'Tab') {
+        var focusable = getFocusableElements();
+        if (!focusable.length) return;
+        var first = focusable[0];
+        var last = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
       }
     });
   }
@@ -260,16 +309,19 @@
   }
 
   // --------------------------------------------------------------------------
-  // Gallery filter
+  // Gallery filter (with race condition fix)
   // --------------------------------------------------------------------------
   function initGalleryFilter() {
     var filterBtns = document.querySelectorAll('.gallery__filter-btn');
     var galleryItems = document.querySelectorAll('.gallery__item');
     if (!filterBtns.length || !galleryItems.length) return;
 
+    var currentFilter = 'all';
+
     filterBtns.forEach(function (btn) {
       btn.addEventListener('click', function () {
         var filter = btn.getAttribute('data-filter');
+        currentFilter = filter;
 
         // Update active button
         filterBtns.forEach(function (b) { b.classList.remove('active'); });
@@ -281,14 +333,19 @@
           if (filter === 'all' || category === filter) {
             item.style.display = '';
             item.style.opacity = '0';
-            requestAnimationFrame(function () {
-              item.style.transition = 'opacity 0.3s ease';
-              item.style.opacity = '1';
-            });
+            // Force reflow before starting transition
+            item.offsetHeight;
+            item.style.transition = 'opacity 0.3s ease';
+            item.style.opacity = '1';
           } else {
+            item.style.transition = 'opacity 0.3s ease';
             item.style.opacity = '0';
+            var capturedFilter = currentFilter;
             setTimeout(function () {
-              item.style.display = 'none';
+              // Only hide if filter hasn't changed since
+              if (currentFilter === capturedFilter) {
+                item.style.display = 'none';
+              }
             }, 300);
           }
         });
@@ -297,56 +354,119 @@
   }
 
   // --------------------------------------------------------------------------
-  // Form handling
+  // Inline form validation helper
+  // --------------------------------------------------------------------------
+  function showFieldError(input, message) {
+    clearFieldError(input);
+    var error = document.createElement('span');
+    error.className = 'form-error';
+    error.textContent = message;
+    error.style.color = '#EF4444';
+    error.style.fontSize = '0.75rem';
+    error.style.marginTop = '0.25rem';
+    error.style.display = 'block';
+    input.style.borderColor = '#EF4444';
+    input.parentNode.appendChild(error);
+  }
+
+  function clearFieldError(input) {
+    input.style.borderColor = '';
+    var existing = input.parentNode.querySelector('.form-error');
+    if (existing) existing.remove();
+  }
+
+  function clearAllErrors(form) {
+    var errors = form.querySelectorAll('.form-error');
+    errors.forEach(function (e) { e.remove(); });
+    var inputs = form.querySelectorAll('.form-input, .form-select');
+    inputs.forEach(function (i) { i.style.borderColor = ''; });
+  }
+
+  // --------------------------------------------------------------------------
+  // Form handling (inline validation, placeholder submit)
   // --------------------------------------------------------------------------
   function initForms() {
     var heroForm = document.getElementById('hero-form');
     if (!heroForm) return;
 
+    // Clear errors on input
+    heroForm.querySelectorAll('.form-input, .form-select').forEach(function (input) {
+      input.addEventListener('input', function () { clearFieldError(input); });
+      input.addEventListener('change', function () { clearFieldError(input); });
+    });
+
     heroForm.addEventListener('submit', function (e) {
       e.preventDefault();
+      clearAllErrors(heroForm);
 
-      var formData = new FormData(heroForm);
-      var data = {};
-      formData.forEach(function (value, key) {
-        data[key] = value;
-      });
+      var service = heroForm.querySelector('[name="service"]');
+      var name = heroForm.querySelector('[name="name"]');
+      var phone = heroForm.querySelector('[name="phone"]');
 
-      // Basic validation
-      if (!data.service || !data.name || !data.phone || !data.zip) {
-        alert('Please fill in all fields to get your free quote.');
-        return;
+      var hasError = false;
+
+      if (!service.value) {
+        showFieldError(service, 'Please select a service.');
+        hasError = true;
+      }
+      if (!name.value.trim()) {
+        showFieldError(name, 'Please enter your name.');
+        hasError = true;
       }
 
-      // Phone number validation (basic)
-      var phoneClean = data.phone.replace(/\D/g, '');
+      var phoneClean = phone.value.replace(/\D/g, '');
       if (phoneClean.length < 10) {
-        alert('Please enter a valid phone number.');
+        showFieldError(phone, 'Please enter a valid 10-digit phone number.');
+        hasError = true;
+      }
+
+      if (hasError) {
+        // Focus first error field
+        var firstError = heroForm.querySelector('[style*="border-color"]');
+        if (firstError) firstError.focus();
         return;
       }
 
-      // ZIP code validation
-      if (!/^\d{5}$/.test(data.zip)) {
-        alert('Please enter a valid 5-digit ZIP code.');
-        return;
-      }
-
-      // Show success state
+      // Show loading state
       var submitBtn = heroForm.querySelector('button[type="submit"]');
       var originalText = submitBtn.innerHTML;
-      submitBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Quote Requested!';
+      submitBtn.innerHTML = 'Sending...';
       submitBtn.disabled = true;
-      submitBtn.style.background = '#16A34A';
 
-      console.log('Quote form submitted:', data);
+      // Submit to Netlify Forms
+      fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(heroForm)).toString()
+      })
+      .then(function (response) {
+        if (!response.ok) throw new Error('Form submission failed');
+        // Success state
+        submitBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Quote Requested!';
+        submitBtn.classList.remove('btn--primary');
+        submitBtn.style.cssText = 'background: #16A34A; border-color: #16A34A;';
 
-      // Reset after 3 seconds
-      setTimeout(function () {
-        heroForm.reset();
-        submitBtn.innerHTML = originalText;
-        submitBtn.disabled = false;
-        submitBtn.style.background = '';
-      }, 3000);
+        setTimeout(function () {
+          heroForm.reset();
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+          submitBtn.classList.add('btn--primary');
+          submitBtn.style.cssText = '';
+        }, 3000);
+      })
+      .catch(function () {
+        // Error state — show message but don't lose the data
+        submitBtn.innerHTML = 'Error — Please call us';
+        submitBtn.style.cssText = 'background: #EF4444; border-color: #EF4444;';
+        submitBtn.classList.remove('btn--primary');
+
+        setTimeout(function () {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+          submitBtn.classList.add('btn--primary');
+          submitBtn.style.cssText = '';
+        }, 4000);
+      });
     });
   }
 
@@ -424,6 +544,7 @@
   // --------------------------------------------------------------------------
   function init() {
     initPageLoader();
+    initAnnouncementBar();
     initFloatingParticles();
     initStatCounters();
     initScrollAnimations();

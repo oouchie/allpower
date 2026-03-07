@@ -1093,7 +1093,7 @@
 }
 
 .faq__item.is-open .faq__answer {
-  max-height: 400px;
+  max-height: 800px;
   padding-bottom: var(--space-5);
 }
 

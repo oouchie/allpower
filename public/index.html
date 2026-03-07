@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Primary Meta Tags -->
-  <title>Power Washing Atlanta GA | All Power Cleaning | 678.485.2303</title>
+  <title>Power Washing Atlanta GA | #1 Rated | Free Estimates | All Power Cleaning</title>
   <meta name="description" content="Atlanta's trusted power washing experts. Driveways, houses, decks, fences, windows & gutters. Free estimates. Call 678.485.2303. Serving all of Metro Atlanta.">
   <meta name="robots" content="index, follow">
   <meta name="author" content="All Power Cleaning Services">
@@ -35,11 +35,19 @@
   <meta name="ICBM" content="33.7490, -84.3880">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>💧</text></svg>">
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/site.webmanifest">
 
   <!-- Preconnect for fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;800&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Preload LCP image -->
+  <link rel="preload" as="image" href="images/logo.png">
 
   <!-- Stylesheets -->
   <link rel="stylesheet" href="css/design-system.css">
@@ -56,12 +64,15 @@
     "url": "https://allpowercleaning.com",
     "telephone": "+1-678-485-2303",
     "logo": "https://allpowercleaning.com/images/logo.png",
+    "email": "info@allpowercleaning.com",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Atlanta",
       "addressRegion": "GA",
+      "postalCode": "30301",
       "addressCountry": "US"
     },
+    "image": "https://allpowercleaning.com/images/logo.png",
     "geo": {
       "@type": "GeoCoordinates",
       "latitude": 33.7490,
@@ -99,6 +110,11 @@
       }
     ],
     "priceRange": "$$",
+    "sameAs": [
+      "https://www.facebook.com/share/1HugJNUMN4/",
+      "https://www.instagram.com/allpowercleaning",
+      "https://www.tiktok.com/@allpowercleaning"
+    ],
     "aggregateRating": {
       "@type": "AggregateRating",
       "ratingValue": "5.0",
@@ -174,6 +190,29 @@
     ]
   }
   </script>
+
+  <!-- Schema: Service -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "serviceType": "Power Washing",
+    "provider": {"@id": "https://allpowercleaning.com/#business"},
+    "areaServed": {"@type": "City", "name": "Atlanta", "sameAs": "https://en.wikipedia.org/wiki/Atlanta"},
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Power Washing Services",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Concrete & Driveway Cleaning", "description": "High-pressure cleaning for driveways, sidewalks, patios, and all concrete surfaces."}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "House Washing", "description": "Soft wash exterior cleaning for vinyl, brick, stucco, and painted surfaces."}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Deck Cleaning", "description": "Restore wood and composite decks with professional pressure washing."}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Fence Cleaning", "description": "Wood, vinyl, and metal fence cleaning and restoration."}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Window Cleaning", "description": "Streak-free professional window cleaning for residential properties."}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Gutter Cleaning", "description": "Remove debris and buildup from gutters and downspouts."}}
+      ]
+    }
+  }
+  </script>
 </head>
 <body>
 
@@ -189,7 +228,7 @@
   <!-- ===== Announcement Bar ===== -->
   <div class="announcement-bar" id="announcement-bar">
     <span>Spring Cleaning Special &mdash; Book This Month & Get 10% Off Your First Service! <a href="#contact">Claim Offer</a></span>
-    <button class="announcement-bar__close" aria-label="Close announcement" onclick="this.parentElement.remove()">
+    <button class="announcement-bar__close" aria-label="Close announcement" id="announcement-close">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
     </button>
   </div>
@@ -198,7 +237,7 @@
   <header class="header" id="header">
     <div class="container header__inner">
       <a href="#" class="header__logo" aria-label="All Power Cleaning - Home">
-        <img src="images/logo.png" alt="All Power Cleaning Services" class="header__logo-img">
+        <img src="images/logo.png" alt="All Power Cleaning Services" class="header__logo-img" width="120" height="120">
       </a>
 
       <nav class="header__nav" aria-label="Main navigation">
@@ -301,7 +340,9 @@
         <div class="hero__form-card">
           <h2 class="hero__form-title">Get Your Free Estimate</h2>
           <p class="hero__form-subtitle">No obligation &mdash; we'll get back to you within 2 hours.</p>
-          <form class="hero__form" id="hero-form" novalidate>
+          <form class="hero__form" id="hero-form" name="quote" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
+            <input type="hidden" name="form-name" value="quote">
+            <p class="sr-only"><label>Don't fill this out: <input name="bot-field"></label></p>
             <div class="form-group">
               <label class="form-label" for="hero-service">Service Needed</label>
               <select class="form-select" id="hero-service" name="service" required>
@@ -322,10 +363,6 @@
             <div class="form-group">
               <label class="form-label" for="hero-phone">Phone Number</label>
               <input type="tel" class="form-input" id="hero-phone" name="phone" placeholder="(404) 555-0123" required autocomplete="tel">
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="hero-zip">ZIP Code</label>
-              <input type="text" class="form-input" id="hero-zip" name="zip" placeholder="30301" required autocomplete="postal-code" inputmode="numeric" maxlength="5">
             </div>
             <button type="submit" class="btn btn--primary btn--lg btn--full">
               Get My Free Quote
@@ -545,16 +582,16 @@
         </div>
 
         <div class="gallery__filters animate-on-scroll">
-          <button class="gallery__filter-btn active" data-filter="all">All Projects</button>
-          <button class="gallery__filter-btn" data-filter="concrete">Concrete</button>
-          <button class="gallery__filter-btn" data-filter="house">Houses</button>
-          <button class="gallery__filter-btn" data-filter="deck">Decks</button>
-          <button class="gallery__filter-btn" data-filter="roof">Roof & Gutters</button>
+          <button type="button" class="gallery__filter-btn active" data-filter="all">All Projects</button>
+          <button type="button" class="gallery__filter-btn" data-filter="concrete">Concrete</button>
+          <button type="button" class="gallery__filter-btn" data-filter="house">Houses</button>
+          <button type="button" class="gallery__filter-btn" data-filter="deck">Decks</button>
+          <button type="button" class="gallery__filter-btn" data-filter="roof">Roof & Gutters</button>
         </div>
 
         <div class="gallery__grid">
           <div class="gallery__item animate-on-scroll stagger-1" data-category="concrete">
-            <img src="images/gallery/driveway-before-after.jpg" alt="Driveway power washing before and after - dark stained driveway restored to clean concrete" loading="lazy" width="600" height="600">
+            <img src="images/gallery/driveway-before-after.jpg" alt="Driveway power washing before and after - dark stained driveway restored to clean concrete" loading="lazy" width="800" height="600">
             <span class="gallery__ba-badge">Before / After</span>
             <div class="gallery__item-overlay">
               <span>Driveway Power Wash</span>
@@ -562,7 +599,7 @@
             </div>
           </div>
           <div class="gallery__item animate-on-scroll stagger-2" data-category="house">
-            <img src="images/gallery/house-siding-before-after.jpg" alt="House siding soft wash before and after - dirty streaked siding restored to clean" loading="lazy" width="600" height="600">
+            <img src="images/gallery/house-siding-before-after.jpg" alt="House siding soft wash before and after - dirty streaked siding restored to clean" loading="lazy" width="800" height="600">
             <span class="gallery__ba-badge">Before / After</span>
             <div class="gallery__item-overlay">
               <span>House Siding Soft Wash</span>
@@ -570,7 +607,7 @@
             </div>
           </div>
           <div class="gallery__item animate-on-scroll stagger-3" data-category="house">
-            <img src="images/gallery/house-exterior-before-after.jpg" alt="House exterior cleaning before and after - vinyl siding and patio area cleaned" loading="lazy" width="600" height="600">
+            <img src="images/gallery/house-exterior-before-after.jpg" alt="House exterior cleaning before and after - vinyl siding and patio area cleaned" loading="lazy" width="800" height="600">
             <span class="gallery__ba-badge">Before / After</span>
             <div class="gallery__item-overlay">
               <span>Exterior House Wash</span>
@@ -578,7 +615,7 @@
             </div>
           </div>
           <div class="gallery__item animate-on-scroll stagger-4" data-category="concrete">
-            <img src="images/gallery/stone-walkway-before-after.jpg" alt="Stone walkway pressure washing before and after - algae and dirt removed from flagstone path" loading="lazy" width="600" height="600">
+            <img src="images/gallery/stone-walkway-before-after.jpg" alt="Stone walkway pressure washing before and after - algae and dirt removed from flagstone path" loading="lazy" width="800" height="600">
             <span class="gallery__ba-badge">Before / After</span>
             <div class="gallery__item-overlay">
               <span>Stone Walkway Cleaning</span>
@@ -586,7 +623,7 @@
             </div>
           </div>
           <div class="gallery__item animate-on-scroll stagger-5" data-category="roof">
-            <img src="images/gallery/roof-cleaning-before-after.jpg" alt="Roof cleaning before and after - moss and algae removed from shingles" loading="lazy" width="600" height="600">
+            <img src="images/gallery/roof-cleaning-before-after.jpg" alt="Roof cleaning before and after - moss and algae removed from shingles" loading="lazy" width="800" height="600">
             <span class="gallery__ba-badge">Before / After</span>
             <div class="gallery__item-overlay">
               <span>Roof Cleaning</span>
@@ -594,7 +631,7 @@
             </div>
           </div>
           <div class="gallery__item animate-on-scroll stagger-6" data-category="concrete">
-            <img src="images/gallery/patio-before-after.jpg" alt="Patio concrete cleaning before and after - dirty patio restored to clean entertaining space" loading="lazy" width="600" height="600">
+            <img src="images/gallery/patio-before-after.jpg" alt="Patio concrete cleaning before and after - dirty patio restored to clean entertaining space" loading="lazy" width="800" height="600">
             <span class="gallery__ba-badge">Before / After</span>
             <div class="gallery__item-overlay">
               <span>Patio Cleaning</span>
@@ -602,7 +639,7 @@
             </div>
           </div>
           <div class="gallery__item animate-on-scroll stagger-7" data-category="deck">
-            <img src="images/gallery/deck-before-after.jpg" alt="Deck cleaning before and after - dirty leaf-covered deck restored to clean wood" loading="lazy" width="600" height="600">
+            <img src="images/gallery/deck-before-after.jpg" alt="Deck cleaning before and after - dirty leaf-covered deck restored to clean wood" loading="lazy" width="800" height="600">
             <span class="gallery__ba-badge">Before / After</span>
             <div class="gallery__item-overlay">
               <span>Deck Restoration</span>
@@ -610,7 +647,7 @@
             </div>
           </div>
           <div class="gallery__item animate-on-scroll stagger-8" data-category="roof">
-            <img src="images/gallery/gutter-before-after.jpg" alt="Gutter cleaning before and after - clogged gutters with debris cleaned out completely" loading="lazy" width="600" height="600">
+            <img src="images/gallery/gutter-before-after.jpg" alt="Gutter cleaning before and after - clogged gutters with debris cleaned out completely" loading="lazy" width="800" height="600">
             <span class="gallery__ba-badge">Before / After</span>
             <div class="gallery__item-overlay">
               <span>Gutter Cleaning</span>
@@ -618,7 +655,7 @@
             </div>
           </div>
           <div class="gallery__item animate-on-scroll stagger-9" data-category="concrete">
-            <img src="images/gallery/stone-entry-before-after.jpg" alt="Stone entryway cleaning before and after - flagstone front entry restored" loading="lazy" width="600" height="600">
+            <img src="images/gallery/stone-entry-before-after.jpg" alt="Stone entryway cleaning before and after - flagstone front entry restored" loading="lazy" width="800" height="600">
             <span class="gallery__ba-badge">Before / After</span>
             <div class="gallery__item-overlay">
               <span>Stone Entry Cleaning</span>
@@ -776,8 +813,8 @@
             width="800"
             height="450"
             loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
             title="All Power Cleaning Services - Metro Atlanta service area"
+            sandbox="allow-scripts allow-same-origin"
             allowfullscreen>
           </iframe>
         </div>
@@ -858,71 +895,71 @@
 
         <div class="faq__list">
           <div class="faq__item animate-on-scroll">
-            <button class="faq__question" aria-expanded="false">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-1">
               <span>How much does power washing cost in Atlanta?</span>
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </button>
-            <div class="faq__answer">
+            <div class="faq__answer" id="faq-answer-1" role="region">
               <p>Pricing depends on the surface and square footage. Driveway cleaning typically starts around $150, while a full house wash runs $250&ndash;$500+. Deck and fence cleaning starts around $150. We provide free, no-obligation estimates so you know exactly what to expect. Call <a href="tel:+16784852303">678.485.2303</a> for a quote.</p>
             </div>
           </div>
 
           <div class="faq__item animate-on-scroll">
-            <button class="faq__question" aria-expanded="false">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-2">
               <span>What areas in Metro Atlanta do you serve?</span>
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </button>
-            <div class="faq__answer">
+            <div class="faq__answer" id="faq-answer-2" role="region">
               <p>We serve the entire Metro Atlanta area within a 30+ mile radius. This includes Atlanta, Decatur, Marietta, Roswell, Alpharetta, Sandy Springs, Dunwoody, Kennesaw, Lawrenceville, Stone Mountain, Tucker, Smyrna, East Point, College Park, Buckhead, and all surrounding communities.</p>
             </div>
           </div>
 
           <div class="faq__item animate-on-scroll">
-            <button class="faq__question" aria-expanded="false">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-3">
               <span>Is pressure washing safe for my home's siding?</span>
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </button>
-            <div class="faq__answer">
+            <div class="faq__answer" id="faq-answer-3" role="region">
               <p>Absolutely, when done by professionals. We use soft wash techniques for delicate surfaces like vinyl siding, stucco, and painted wood. Soft washing uses low water pressure combined with biodegradable cleaning solutions to safely remove mold, mildew, and dirt without causing damage.</p>
             </div>
           </div>
 
           <div class="faq__item animate-on-scroll">
-            <button class="faq__question" aria-expanded="false">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-4">
               <span>How often should I power wash my house in Georgia?</span>
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </button>
-            <div class="faq__answer">
+            <div class="faq__answer" id="faq-answer-4" role="region">
               <p>Atlanta's warm, humid climate promotes rapid mold, mildew, and algae growth. We recommend power washing your home exterior at least once per year. High-traffic surfaces like driveways may benefit from cleaning every 6 to 12 months. Regular cleaning protects your home's value and prevents long-term damage.</p>
             </div>
           </div>
 
           <div class="faq__item animate-on-scroll">
-            <button class="faq__question" aria-expanded="false">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-5">
               <span>What is the difference between power washing and soft washing?</span>
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </button>
-            <div class="faq__answer">
+            <div class="faq__answer" id="faq-answer-5" role="region">
               <p>Power washing uses high-pressure water to blast away tough stains from hard surfaces like concrete, brick, and stone. Soft washing uses low pressure with specialized biodegradable cleaning solutions to safely clean delicate surfaces like vinyl siding, roof shingles, and painted wood. We use both methods depending on the surface being cleaned.</p>
             </div>
           </div>
 
           <div class="faq__item animate-on-scroll">
-            <button class="faq__question" aria-expanded="false">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-6">
               <span>Do you offer free estimates?</span>
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </button>
-            <div class="faq__answer">
+            <div class="faq__answer" id="faq-answer-6" role="region">
               <p>Yes! Every estimate from All Power Cleaning Services is completely free with no obligation. Call us at <a href="tel:+16784852303">678.485.2303</a> or fill out the form on this page. We typically respond within a couple of hours.</p>
             </div>
           </div>
 
           <div class="faq__item animate-on-scroll">
-            <button class="faq__question" aria-expanded="false">
+            <button class="faq__question" aria-expanded="false" aria-controls="faq-answer-7">
               <span>Are you licensed and insured?</span>
               <svg class="faq__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
             </button>
-            <div class="faq__answer">
+            <div class="faq__answer" id="faq-answer-7" role="region">
               <p>Yes. All Power Cleaning Services is fully licensed and insured with $2M in general liability coverage. Your property is protected from start to finish on every job.</p>
             </div>
           </div>
@@ -977,18 +1014,18 @@
         <!-- Brand Column -->
         <div class="footer__brand">
           <div class="footer__logo">
-            <img src="images/logo.png" alt="All Power Cleaning Services" class="footer__logo-img">
+            <img src="images/logo.png" alt="All Power Cleaning Services" class="footer__logo-img" width="120" height="90">
           </div>
           <p>Metro Atlanta's trusted power washing experts. Restoring curb appeal one property at a time since day one.</p>
           <div class="footer__social">
-            <a href="#" aria-label="Facebook">
+            <a href="https://www.facebook.com/share/1HugJNUMN4/" target="_blank" rel="noopener noreferrer" aria-label="Facebook">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
             </a>
-            <a href="#" aria-label="Instagram">
+            <a href="https://www.instagram.com/allpowercleaning" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
             </a>
-            <a href="#" aria-label="Google Business">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            <a href="https://www.tiktok.com/@allpowercleaning" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1 0-5.78c.27 0 .54.04.79.1v-3.5a6.37 6.37 0 0 0-.79-.05A6.34 6.34 0 0 0 3.15 15a6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.34-6.34V8.7a8.16 8.16 0 0 0 4.76 1.52v-3.4a4.85 4.85 0 0 1-1-.13z"/></svg>
             </a>
           </div>
         </div>
