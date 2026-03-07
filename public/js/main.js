@@ -434,13 +434,16 @@
       submitBtn.disabled = true;
 
       // Submit to Netlify Forms
-      fetch('/', {
+      var formData = new FormData(heroForm);
+      var encoded = new URLSearchParams(formData).toString();
+
+      fetch(heroForm.action || '/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(new FormData(heroForm)).toString()
+        body: encoded
       })
       .then(function (response) {
-        if (!response.ok) throw new Error('Form submission failed');
+        if (!response.ok) throw new Error('Status ' + response.status);
         // Success state
         submitBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Quote Requested!';
         submitBtn.classList.remove('btn--primary');
@@ -455,17 +458,8 @@
         }, 3000);
       })
       .catch(function () {
-        // Error state — show message but don't lose the data
-        submitBtn.innerHTML = 'Error — Please call us';
-        submitBtn.style.cssText = 'background: #EF4444; border-color: #EF4444;';
-        submitBtn.classList.remove('btn--primary');
-
-        setTimeout(function () {
-          submitBtn.innerHTML = originalText;
-          submitBtn.disabled = false;
-          submitBtn.classList.add('btn--primary');
-          submitBtn.style.cssText = '';
-        }, 4000);
+        // Fallback: submit the form natively (will redirect but data won't be lost)
+        heroForm.submit();
       });
     });
   }
