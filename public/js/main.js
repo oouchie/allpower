@@ -458,6 +458,7 @@
         }, 3000);
       })
       .catch(function (err) {
+        console.error('Form submission failed:', err);
         // Show error message instead of redirecting to broken page
         submitBtn.innerHTML = 'Error — Please Call 678.485.2303';
         submitBtn.style.cssText = 'background: #EF4444; border-color: #EF4444;';

@@ -314,6 +314,15 @@
 </head>
 <body>
 
+  <!-- Hidden form for Netlify deploy bot detection (required for JS-submitted forms) -->
+  <form name="quote" netlify netlify-honeypot="bot-field" hidden>
+    <input name="form-name" type="hidden" value="quote">
+    <input name="bot-field">
+    <input name="service">
+    <input name="name">
+    <input name="phone">
+  </form>
+
   <!-- ===== Page Loader ===== -->
   <div class="page-loader" id="page-loader">
     <div class="page-loader__spinner"></div>
