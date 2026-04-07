@@ -599,6 +599,45 @@
 }
 
 /* --------------------------------------------------------------------------
+   How It Works Section
+   -------------------------------------------------------------------------- */
+.how-it-works {
+  text-align: center;
+}
+
+.how-it-works__header {
+  max-width: 640px;
+  margin: 0 auto var(--space-12);
+}
+
+.how-step {
+  text-align: center;
+  padding: var(--space-8);
+  position: relative;
+}
+
+.how-step__number {
+  font-family: var(--font-heading);
+  font-size: clamp(3rem, 5vw, 4.5rem);
+  color: var(--color-primary);
+  opacity: 0.15;
+  line-height: 1;
+  margin-bottom: var(--space-3);
+  letter-spacing: var(--tracking-wide);
+}
+
+.how-step h3 {
+  font-size: var(--text-h4);
+  margin-bottom: var(--space-3);
+}
+
+.how-step p {
+  font-size: var(--text-body-sm);
+  color: var(--color-text-muted);
+  line-height: var(--leading-normal);
+}
+
+/* --------------------------------------------------------------------------
    Services Section
    -------------------------------------------------------------------------- */
 .services {
@@ -673,6 +712,13 @@
   gap: var(--space-2);
 }
 
+/* Center orphan 7th card in 3-column grid */
+@media (min-width: 768px) {
+  .services .grid--3 > .service-card:nth-child(7):last-child {
+    grid-column: 2;
+  }
+}
+
 .service-card__tag {
   font-family: var(--font-label);
   font-size: var(--text-xs);
@@ -687,49 +733,113 @@
 }
 
 /* --------------------------------------------------------------------------
-   Why Choose Us Section
+   Promo Strip Banner
+   -------------------------------------------------------------------------- */
+.promo-strip {
+  background: var(--color-dark-card);
+  padding: var(--space-4) 0;
+}
+
+.promo-strip__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  border-left: 4px solid var(--color-primary);
+  padding-left: var(--space-4);
+}
+
+.promo-strip__content {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.promo-strip__badge {
+  font-family: var(--font-heading);
+  font-size: var(--text-h4);
+  color: var(--color-primary);
+  letter-spacing: var(--tracking-wide);
+  white-space: nowrap;
+}
+
+.promo-strip__text {
+  font-size: var(--text-body);
+  color: var(--color-text-secondary);
+}
+
+.promo-strip__cta {
+  font-family: var(--font-heading);
+  font-size: var(--text-h4);
+  color: var(--color-primary);
+  white-space: nowrap;
+  letter-spacing: var(--tracking-wide);
+  transition: color var(--transition-fast);
+}
+
+.promo-strip__cta:hover {
+  color: var(--color-primary-light);
+}
+
+@media (max-width: 767px) {
+  .promo-strip__inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .promo-strip__content {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Why Choose Us / About Us Section
    -------------------------------------------------------------------------- */
 .why-us {
   text-align: center;
 }
 
 .why-us__header {
-  max-width: 640px;
+  max-width: 700px;
   margin: 0 auto var(--space-12);
 }
 
+.why-us__header .section-subtitle {
+  max-width: 700px;
+  text-align: left;
+}
+
 .why-card {
-  text-align: center;
-  padding: var(--space-6);
-  background: transparent;
-  border: none;
-  box-shadow: none;
+  text-align: left;
+  padding: var(--space-8);
+  background: var(--color-dark-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
 }
 
 .why-card:hover {
-  box-shadow: none;
-  transform: none;
+  border-color: var(--border-color-strong);
+  box-shadow: var(--shadow-glow);
 }
 
-.why-card__icon {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-full);
-  background-color: rgba(92, 225, 230, 0.1);
+.why-card__number {
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
   color: var(--color-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto var(--space-4);
-  font-size: 1.25rem;
+  opacity: 0.3;
+  line-height: 1;
+  margin-bottom: var(--space-3);
+  letter-spacing: var(--tracking-wide);
 }
 
 .why-card h3 {
-  font-size: var(--text-body);
-  font-weight: var(--weight-semibold);
-  font-family: var(--font-body);
-  text-transform: none;
-  margin-bottom: var(--space-2);
+  font-size: var(--text-h4);
+  font-weight: var(--weight-normal);
+  font-family: var(--font-heading);
+  text-transform: uppercase;
+  margin-bottom: var(--space-3);
   color: var(--color-white);
 }
 
@@ -737,6 +847,43 @@
   font-size: var(--text-body-sm);
   color: var(--color-text-muted);
   line-height: var(--leading-normal);
+}
+
+.why-us__quote {
+  margin-top: var(--space-12);
+  text-align: center;
+}
+
+.why-us__quote blockquote {
+  font-family: var(--font-heading);
+  font-size: var(--text-h2);
+  color: var(--color-primary);
+  letter-spacing: var(--tracking-wide);
+  line-height: var(--leading-snug);
+  text-transform: uppercase;
+}
+
+.why-us__quote cite {
+  display: block;
+  margin-top: var(--space-3);
+  font-family: var(--font-label);
+  font-size: var(--text-body-sm);
+  font-style: normal;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+/* CTA Section promo line */
+.cta-section__promo {
+  font-family: var(--font-label);
+  font-size: var(--text-body);
+  font-weight: var(--weight-semibold);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-2);
 }
 
 /* --------------------------------------------------------------------------
@@ -835,8 +982,15 @@
   transition: opacity var(--transition-base);
 }
 
-.gallery__item:hover .gallery__item-overlay {
+.gallery__item:hover .gallery__item-overlay,
+.gallery__item:focus-visible .gallery__item-overlay {
   opacity: 1;
+}
+
+.gallery__item:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--radius-md);
 }
 
 .gallery__item-overlay span {
@@ -1264,8 +1418,8 @@
 }
 
 .footer__social a {
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   border-radius: var(--radius-md);
   background-color: rgba(92, 225, 230, 0.06);
   border: 1px solid var(--border-color);

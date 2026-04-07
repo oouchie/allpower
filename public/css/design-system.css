@@ -31,7 +31,7 @@
   --color-text: #FFFFFF;
   --color-text-secondary: #C8D6DA;
   --color-text-muted: #8A9EA5;
-  --color-text-faint: #5A6E75;
+  --color-text-faint: #7A8E95;
 
   /* Semantic colors */
   --color-success: #22C55E;
@@ -581,7 +581,7 @@ p {
 .btn--sm {
   padding: var(--space-2) var(--space-4);
   font-size: var(--text-body-sm);
-  min-height: 40px;
+  min-height: 44px;
 }
 
 /* Full width */

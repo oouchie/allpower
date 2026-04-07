@@ -12,4 +12,4 @@ Allow: /*.webp$
 Allow: /*.jpg$
 Allow: /*.png$
 
-Sitemap: https://allpowercleaning.com/sitemap.xml
+Sitemap: https://allpowercleaningservices.com/sitemap.xml
