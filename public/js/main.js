@@ -437,7 +437,7 @@
       var formData = new FormData(heroForm);
       var encoded = new URLSearchParams(formData).toString();
 
-      fetch(heroForm.action || '/', {
+      fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: encoded
@@ -457,9 +457,16 @@
           submitBtn.style.cssText = '';
         }, 3000);
       })
-      .catch(function () {
-        // Fallback: submit the form natively (will redirect but data won't be lost)
-        heroForm.submit();
+      .catch(function (err) {
+        // Show error message instead of redirecting to broken page
+        submitBtn.innerHTML = 'Error — Please Call 678.485.2303';
+        submitBtn.style.cssText = 'background: #EF4444; border-color: #EF4444;';
+
+        setTimeout(function () {
+          submitBtn.innerHTML = originalText;
+          submitBtn.disabled = false;
+          submitBtn.style.cssText = '';
+        }, 4000);
       });
     });
   }
