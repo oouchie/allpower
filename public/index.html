@@ -314,14 +314,6 @@
 </head>
 <body>
 
-  <!-- Hidden form for Netlify deploy bot detection (required for JS-submitted forms) -->
-  <form name="quote" netlify netlify-honeypot="bot-field" hidden>
-    <input name="form-name" type="hidden" value="quote">
-    <input name="bot-field">
-    <input name="service">
-    <input name="name">
-    <input name="phone">
-  </form>
 
   <!-- ===== Page Loader ===== -->
   <div class="page-loader" id="page-loader">
@@ -447,9 +439,11 @@
         <div class="hero__form-card">
           <h2 class="hero__form-title">Get Your Free Estimate</h2>
           <p class="hero__form-subtitle">No obligation &mdash; we'll get back to you within 2 hours.</p>
-          <form class="hero__form" id="hero-form" name="quote" action="/" method="POST" data-netlify="true" netlify-honeypot="bot-field" novalidate>
-            <input type="hidden" name="form-name" value="quote">
-            <p class="sr-only"><label>Don't fill this out: <input name="bot-field"></label></p>
+          <form class="hero__form" id="hero-form" name="quote" action="https://api.web3forms.com/submit" method="POST" novalidate>
+            <input type="hidden" name="access_key" value="660a752d-72f2-48e1-beef-b0ef6b715c77">
+            <input type="hidden" name="subject" value="New Quote Request — All Power Cleaning Services">
+            <input type="hidden" name="from_name" value="All Power Cleaning Website">
+            <input type="checkbox" name="botcheck" class="sr-only" style="display:none">
             <div class="form-group">
               <label class="form-label" for="hero-service">Service Needed</label>
               <select class="form-select" id="hero-service" name="service" required>

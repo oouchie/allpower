@@ -433,17 +433,19 @@
       submitBtn.innerHTML = 'Sending...';
       submitBtn.disabled = true;
 
-      // Submit to Netlify Forms
+      // Submit to Web3Forms API
       var formData = new FormData(heroForm);
-      var encoded = new URLSearchParams(formData).toString();
+      var object = {};
+      formData.forEach(function (value, key) { object[key] = value; });
 
-      fetch('/', {
+      fetch('https://api.web3forms.com/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encoded
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(object)
       })
-      .then(function (response) {
-        if (!response.ok) throw new Error('Status ' + response.status);
+      .then(function (response) { return response.json(); })
+      .then(function (data) {
+        if (!data.success) throw new Error(data.message || 'Submission failed');
         // Success state
         submitBtn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Quote Requested!';
         submitBtn.classList.remove('btn--primary');
@@ -459,7 +461,6 @@
       })
       .catch(function (err) {
         console.error('Form submission failed:', err);
-        // Show error message instead of redirecting to broken page
         submitBtn.innerHTML = 'Error — Please Call 678.485.2303';
         submitBtn.style.cssText = 'background: #EF4444; border-color: #EF4444;';
 
