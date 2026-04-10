@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(copy \"C:\\\\Users\\\\oouch\\\\Downloads\\\\All Power\\\\unnamed.jpg\" \"C:\\\\Users\\\\oouch\\\\App Projects\\\\all-power-cleaning\\\\public\\\\images\\\\gallery\\\\driveway-before-after.jpg\")",
+      "Bash(copy:*)",
+      "Bash(copy \"C:\\\\Users\\\\oouch\\\\Downloads\\\\All Power\\\\unnamed3.jpg\" \"C:\\\\Users\\\\oouch\\\\App Projects\\\\all-power-cleaning\\\\public\\\\images\\\\gallery\\\\stone-walkway-before-after.jpg\")",
+      "Bash(copy \"C:\\\\Users\\\\oouch\\\\Downloads\\\\All Power\\\\unnamed4.jpg\" \"C:\\\\Users\\\\oouch\\\\App Projects\\\\all-power-cleaning\\\\public\\\\images\\\\gallery\\\\roof-cleaning-before-after.jpg\")",
+      "Bash(copy \"C:\\\\Users\\\\oouch\\\\Downloads\\\\All Power\\\\unnamed6.jpg\" \"C:\\\\Users\\\\oouch\\\\App Projects\\\\all-power-cleaning\\\\public\\\\images\\\\gallery\\\\deck-before-after.jpg\")",
+      "Bash(copy \"C:\\\\Users\\\\oouch\\\\Downloads\\\\All Power\\\\unnamed7.jpg\" \"C:\\\\Users\\\\oouch\\\\App Projects\\\\all-power-cleaning\\\\public\\\\images\\\\gallery\\\\gutter-before-after.jpg\")",
+      "Bash(copy \"C:\\\\Users\\\\oouch\\\\Downloads\\\\All Power\\\\unnamed8.jpg\" \"C:\\\\Users\\\\oouch\\\\App Projects\\\\all-power-cleaning\\\\public\\\\images\\\\gallery\\\\stone-entry-before-after.jpg\")",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$\\(cat <<''EOF''\nAdd before and after gallery photos from real projects\n\nReplace placeholder gallery items with 9 real before/after images\ncovering driveways, house siding, stone walkways, roofs, patios,\ndecks, gutters, and stone entryways. Update filter categories to\nmatch available content.\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\")",
+      "Bash(git push:*)",
+      "Bash(cp:*)",
+      "Bash(ls:*)",
+      "WebSearch",
+      "WebFetch(domain:www.homeadvisor.com)",
+      "WebFetch(domain:bippermedia.com)",
+      "WebFetch(domain:all-power-cleaning-services-llc.wheree.com)",
+      "WebFetch(domain:www.facebook.com)",
+      "WebFetch(domain:all-powercleaning.com)",
+      "WebFetch(domain:www.angi.com)",
+      "WebFetch(domain:zaubee.com)",
+      "WebFetch(domain:www.linkedin.com)",
+      "WebFetch(domain:www.google.com)",
+      "WebFetch(domain:allpowercleaningservices.com)",
+      "Bash(nslookup allpowercleaningservices.com)",
+      "Bash(dig allpowercleaningservices.com +short)",
+      "Bash(curl -sI https://allpowercleaningservices.com)"
+    ]
+  }
+}
